@@ -1,0 +1,11 @@
+<md-content ng-controller="searchCtrl">
+  <md-button class="md-icon-button md-primary" aria-label="Letter letterOption" ng-repeat="letterOption in alphabet" ng-click="selectLetter(letterOption)">{{letterOption}}</md-button>
+  <md-button type="submit" ng-click="updateReleaseName()" ng-show="releases && !currentlyUpdating" aria-label="refresh"><i class="fa fa-refresh fa-3x fa-fw" aria-hidden="true"></i></md-button>
+  <md-button type="submit" ng-show="currentlyUpdating" aria-label="currently refreshing"><i class="fa fa-refresh fa-spin fa-3x fa-fw"></i></md-button>
+  <div ng-show="releases">
+  Maybe name your release:
+    <div ng-repeat="releaseName in releases track by $index">
+      <strong>{{releaseName}}</strong>
+    </div>
+  </div>
+</md-content>
