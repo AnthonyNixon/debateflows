@@ -21,9 +21,11 @@ angular.module('debateflowsapp', ['ngMaterial', 'ngRoute'])
         $locationProvider.hashPrefix('!');
     }])
     .run( function($rootScope, $location) {
+        console.log('hi');
         // $rootScope.loggedUser = "ajn0592@gmail.com";
         // register listener to watch route changes
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
+            console.log('changing route');
             if ($rootScope.loggedUser === null) {
                 $location.path("/login");
             }
