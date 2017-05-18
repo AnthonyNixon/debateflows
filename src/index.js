@@ -84,6 +84,7 @@ angular.module('debateflowsapp', ['ngMaterial', 'ngRoute'])
         _this.login = function (email, password) {
             var endpoint = configSvc.backend + 'login';
             var json = {'email': email, 'password': password};
+            console.log("calling endpoint: ", endpoint);
             return $http.post(endpoint, json)
                 .success(function (response) {
                     return response;
