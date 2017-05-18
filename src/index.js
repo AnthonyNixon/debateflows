@@ -27,7 +27,8 @@ angular.module('debateflowsapp', ['ngMaterial', 'ngRoute'])
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             console.log('changing route');
             if ($rootScope.loggedUser === null || $rootScope.loggedUser === undefined) {
-                $location.path("/login");
+                console.log('user not logged in');
+                $location.path('login');
             }
         });
     })
