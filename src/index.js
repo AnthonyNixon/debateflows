@@ -55,11 +55,12 @@ angular.module('debateflowsapp', ['ngMaterial', 'ngRoute'])
         }])
 
     .controller('loginCtrl', function($scope) {
-        $scope.vm = {
-            formData: {
-                email: '123',
-                password: '321'
-            }
+        $scope.email = "";
+        $scope.password = "";
+
+        $scope.login = function () {
+
+            console.log("logging in user with email address: ", $scope.email);
         }
     })
 
