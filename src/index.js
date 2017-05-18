@@ -70,7 +70,7 @@ angular.module('debateflowsapp', ['ngMaterial', 'ngRoute'])
 
         var _this = this;
 
-        _this.backendHost = 'http://localhost:8080/';
+        _this.backendHost = 'https://localhost:8080/';
         _this.apiVersion = 'v1';
 
         _this.backend = _this.backendHost + _this.apiVersion + '/';
@@ -82,7 +82,7 @@ angular.module('debateflowsapp', ['ngMaterial', 'ngRoute'])
         var _this = this;
 
         _this.login = function (email, password) {
-            var endpoint = configSvc.backend + '/login';
+            var endpoint = configSvc.backend + 'login';
             var json = {'email': email, 'password': password};
             return $http.post(endpoint, json)
                 .success(function (response) {
