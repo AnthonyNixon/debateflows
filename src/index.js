@@ -54,17 +54,46 @@ angular.module('debateflowsapp', ['ngMaterial', 'ngRoute'])
 
         }])
 
-    .controller('loginCtrl', function($scope) {
+    .controller('loginCtrl', function($scope, loginSvc) {
         $scope.email = "";
         $scope.password = "";
 
         $scope.login = function () {
-
             console.log("logging in user with email address: ", $scope.email);
-            $scope.passwordHash = CryptoJS.SHA512($scope.password).toString();
-            console.log($scope.passwordHash);
+            loginSvc.login($scope.email, $scope.password).then(function (response) {
+                console.log(response);
+            });
         }
     })
+
+    .service('configSvc', function () {
+
+        var _this = this;
+
+        _this.backendHost = 'http://localhost:8080/';
+        _this.apiVersion = 'v1';
+
+        _this.backend = _this.backendHost + _this.apiVersion + '/';
+
+    })
+
+    .service('loginSvc', ['$http', 'configSvc', function ($http, configSvc) {
+
+        var _this = this;
+
+        _this.login = function (email, password) {
+            var endpoint = configSvc.backend + '/login';
+            var json = {'email': email, 'password': password};
+            return $http.post(endpoint, json)
+                .success(function (response) {
+                    return response;
+                })
+                .catch(function (response) {
+                    return response;
+                });
+        };
+
+    }])
 
     .controller('searchCtrl', ['$scope', '$http',
         function ($scope, $http) {
