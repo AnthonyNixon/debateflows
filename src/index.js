@@ -21,6 +21,7 @@ angular.module('debateflowsapp', ['ngMaterial', 'ngRoute'])
         $locationProvider.hashPrefix('!');
     }])
     .run( function($rootScope, $location) {
+        var sha512 = require('sha512');
         console.log('hi');
         // $rootScope.loggedUser = "ajn0592@gmail.com";
         // register listener to watch route changes
@@ -61,6 +62,8 @@ angular.module('debateflowsapp', ['ngMaterial', 'ngRoute'])
         $scope.login = function () {
 
             console.log("logging in user with email address: ", $scope.email);
+            $scope.passwordHash = sha512($scope.password);
+            console.log($scope.passwordHash);
         }
     })
 
