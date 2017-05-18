@@ -1,15 +1,17 @@
-angular.module('releaseGeneratorApp', ['ngMaterial', 'ngRoute'])
+angular.module('debateflowsapp', ['ngMaterial', 'ngRoute'])
 
     .config(['$mdThemingProvider', '$routeProvider', '$locationProvider', function ($mdThemingProvider, $routeProvider, $locationProvider) {
-        //Set up theme for the site using Target Red
         $mdThemingProvider.theme('default')
             .primaryPalette('blue')
             .accentPalette('amber');
 
         $routeProvider
-          .when('/', {
-              templateUrl: template("home")
-          })
+            .when('/', {
+                templateUrl: template("home")
+            })
+            .when('/login', {
+                templateUrl: template('login')
+            });
 
         function template(page) {
             return 'src/views/' + page + '.html';
@@ -18,7 +20,15 @@ angular.module('releaseGeneratorApp', ['ngMaterial', 'ngRoute'])
         $locationProvider.html5Mode(true);
         $locationProvider.hashPrefix('!');
     }])
-
+    .run( function($rootScope, $location) {
+        // $rootScope.loggedUser = "ajn0592@gmail.com";
+        // register listener to watch route changes
+        $rootScope.$on("$routeChangeStart", function (event, next, current) {
+            if ($rootScope.loggedUser === null) {
+                $location.path("/login");
+            }
+        });
+    })
     // Set up routeCtrl to act as the controller for route operations
     .controller('rootCtrl', ['$scope', '$location', '$window', '$http', '$rootScope',
         function ($scope, $location, $window, $http, $rootScope) {
@@ -41,30 +51,39 @@ angular.module('releaseGeneratorApp', ['ngMaterial', 'ngRoute'])
 
         }])
 
+    .controller('loginCtrl', function($scope) {
+        $scope.vm = {
+            formData: {
+                email: '123',
+                password: '321'
+            }
+        }
+    })
+
     .controller('searchCtrl', ['$scope', '$http',
         function ($scope, $http) {
-            $scope.releaseName = ""
+            $scope.releaseName = "";
             $scope.letter = "";
             $scope.currentlyUpdating = false;
             $scope.alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
             $scope.selectLetter = selectLetter;
 
             $scope.updateReleaseName = function() {
-              getReleaseName($scope.letter);
-            }
+                getReleaseName($scope.letter);
+            };
 
             function getReleaseName(letter) {
-              $scope.currentlyUpdating = true;
-              $http.get("https://us-central1-releasegenerator.cloudfunctions.net/generaterelease?letter=" + letter + "&numReleases=10")
-                .then(function(response){
-                  $scope.releases = response.data;
-                  $scope.currentlyUpdating = false;
-                });
+                $scope.currentlyUpdating = true;
+                $http.get("https://us-central1-releasegenerator.cloudfunctions.net/generaterelease?letter=" + letter + "&numReleases=10")
+                    .then(function(response){
+                        $scope.releases = response.data;
+                        $scope.currentlyUpdating = false;
+                    });
             }
 
             function selectLetter(letter) {
-              $scope.letter = letter;
-              getReleaseName($scope.letter);
+                $scope.letter = letter;
+                getReleaseName($scope.letter);
             }
 
-    }]);
+        }]);

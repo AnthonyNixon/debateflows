@@ -7,3 +7,10 @@
     padding-left: 2%;
     padding-right: 2%;
 }
+
+.page-login md-card {
+    padding: 0!important;
+}
+.page-login md-card md-card-title {
+    background-color: dodgerblue;
+}
