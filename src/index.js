@@ -61,7 +61,7 @@ angular.module('debateflowsapp', ['ngMaterial', 'ngRoute'])
         $scope.login = function () {
 
             console.log("logging in user with email address: ", $scope.email);
-            $scope.passwordHash = CryptoJS.SHA512($scope.password);
+            $scope.passwordHash = CryptoJS.HmacSHA512($scope.password);
             console.log($scope.passwordHash);
         }
     })
