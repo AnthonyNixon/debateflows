@@ -26,7 +26,7 @@ angular.module('debateflowsapp', ['ngMaterial', 'ngRoute'])
         // register listener to watch route changes
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
             console.log('changing route');
-            if ($rootScope.loggedUser === null) {
+            if ($rootScope.loggedUser === null || $rootScope.loggedUser === undefined) {
                 $location.path("/login");
             }
         });
