@@ -70,7 +70,7 @@ angular.module('debateflowsapp', ['ngMaterial', 'ngRoute'])
 
         var _this = this;
 
-        _this.backendHost = 'https://localhost:8080/';
+        _this.backendHost = 'https://debateballots.com:8080/';
         _this.apiVersion = 'v1';
 
         _this.backend = _this.backendHost + _this.apiVersion + '/';
